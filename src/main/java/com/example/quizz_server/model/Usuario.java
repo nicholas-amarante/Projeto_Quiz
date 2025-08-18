@@ -1,20 +1,29 @@
 package com.example.quizz_server.model;
-import jakarta.persistence.Entity;
+import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
 
 @Entity
+@Table(name = "Usuario")
+@Inheritance(strategy = InheritanceType.JOINED)
 public class Usuario extends BaseModel{
-    String nome;
-    String email;
-    String senha_hash;
-    Enum<TipoPerfil> tipo_perfil;
+    @NotBlank
+    @Column(name = "nome_completo", nullable = false)
+    private String nomeCompleto;
+    @NotBlank
+    private String email;
+    @NotBlank
+    @Column(name = "senha_hash")
+    private String senhaHash;
+    @NotBlank
+    @Enumerated(EnumType.STRING)
+    private TipoPerfil tipo_perfil;
 
-
-    public String getNome() {return nome;}
-    public void setNome(String nome) {this.nome = nome;}
+    public String getNomeCompleto() {return nomeCompleto;}
+    public void setNomeCompleto(String nomeCompleto) {this.nomeCompleto = nomeCompleto;}
     public String getEmail() {return email;}
     public void setEmail(String email) {this.email = email;}
-    public String getSenha_hash() {return senha_hash;}
-    public void setSenha_hash(String senha_hash) {this.senha_hash = senha_hash;}
-    public Enum<TipoPerfil> getTipo_perfil() {return tipo_perfil;}
-    public void setTipo_perfil(Enum<TipoPerfil> tipo_perfil) {this.tipo_perfil = tipo_perfil;}
+    public String getSenhaHash() {return senhaHash;}
+    public void setSenhaHash(String senha_hash) {this.senhaHash = senhaHash;}
+    public TipoPerfil getTipo_perfil() {return tipo_perfil;}
+    public void setTipo_perfil(TipoPerfil tipo_perfil) {this.tipo_perfil = tipo_perfil;}
 }
